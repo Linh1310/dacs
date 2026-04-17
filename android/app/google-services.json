@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "663090877811",
+    "project_id": "ecobat-8a6c3",
+    "storage_bucket": "ecobat-8a6c3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663090877811:android:babb7cc41e0c1cbb34e106",
+        "android_client_info": {
+          "package_name": "com.example.dacs3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663090877811-kbv8kiebn4mco5vfgfmhnnp9s3s9uohe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dacs3",
+            "certificate_hash": "69460ec0e1f0089b29b3e9d63de0c2d262c69cd2"
+          }
+        },
+        {
+          "client_id": "663090877811-tr7uvvgi2edkktv270b999cqdbekqgap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPh7qFkUbvUBCGLsIr-3cJC0AYboYe_L0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663090877811-tr7uvvgi2edkktv270b999cqdbekqgap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
