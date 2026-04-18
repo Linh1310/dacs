@@ -34,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 if (error == null) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Đăng ký thành công")));
+                  Navigator.pop(context); // Quay lại trang đăng nhập
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
                 }

@@ -46,6 +46,13 @@ class _LoginPageState extends State<LoginPage> {
                 }
               },
             ),
+            ElevatedButton(
+              child: Text("Test Firestore"),
+              onPressed: () async {
+                final result = await AuthController().testFirestoreConnection();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result ?? "Lỗi không xác định")));
+              },
+            ),
             TextButton(
               onPressed: () {
                 Navigator.push(

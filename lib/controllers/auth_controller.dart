@@ -21,6 +21,9 @@ class AuthController {
         "createdAt": DateTime.now(),
       });
 
+      // Tự động đăng nhập sau khi đăng ký
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+
       return null;
     } catch (e) {
       return e.toString();
@@ -43,6 +46,9 @@ class AuthController {
   // 🔥 ĐĂNG NHẬP GOOGLE
   Future<String?> loginWithGoogle() async {
     try {
+      // Đăng xuất trước để luôn hiện picker chọn tài khoản
+      await _googleSignIn.signOut();
+
       // B1: Mở Google chọn tài khoản
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
@@ -65,19 +71,14 @@ class AuthController {
 
       User? user = userCredential.user;
 
-      // B5: Lưu user vào Firestore nếu lần đầu
+      // B5: Luôn cập nhật user vào Firestore (có thể ghi đè thông tin mới)
       if (user != null) {
-        DocumentSnapshot snapshot =
-        await _db.collection("users").doc(user.uid).get();
-
-        if (!snapshot.exists) {
-          await _db.collection("users").doc(user.uid).set({
-            "name": user.displayName,
-            "email": user.email,
-            "avatar": user.photoURL,
-            "createdAt": DateTime.now(),
-          });
-        }
+        await _db.collection("users").doc(user.uid).set({
+          "name": user.displayName,
+          "email": user.email,
+          "avatar": user.photoURL,
+          "createdAt": DateTime.now(),
+        }, SetOptions(merge: true));
       }
 
       return null; // thành công
@@ -94,4 +95,25 @@ class AuthController {
 
   // Lấy user hiện tại
   User? get currentUser => _auth.currentUser;
+
+  // Test kết nối Firestore
+  Future<String?> testFirestoreConnection() async {
+    try {
+      // Thử ghi một document test
+      await _db.collection("test").doc("connection").set({
+        "message": "Kết nối Firestore thành công",
+        "timestamp": DateTime.now(),
+      });
+
+      // Thử đọc lại
+      DocumentSnapshot doc = await _db.collection("test").doc("connection").get();
+      if (doc.exists) {
+        return "Kết nối Firestore thành công!";
+      } else {
+        return "Không thể đọc document test";
+      }
+    } catch (e) {
+      return "Lỗi kết nối Firestore: ${e.toString()}";
+    }
+  }
 }
